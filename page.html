@@ -9,30 +9,19 @@
 
 <div>
   <button id="button">Button</button>
-  <div id="content" class="preformatted"></div>
-  <div id="data" class="preformatted"></div>
+  <div id="content">
+    <p>Servers:</p>
+    <table>
+      <thead><tr><th>Name</th><th>Last Wipe</th></tr></thead>
+      <tbody id="servers">
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <p>JSON result:</p>
+    <div id="data" class="preformatted"></div>
+  </div>
 </div>
 </body>
 <script src="main.js"></script>
-</html>
-
-
-<!--
-
-<html>
-  <head>
-    <title>RustServerSearcher</title>
-    <link href="main.css" rel="stylesheet" type="text/css"/>
-    <script src="main.js"/>
-  </head>
-  <body>
-
-<button id="mainButton">
-Retrieve Information
-</button>
-
-    <p id="output">
-    I can Count!
-    </p>
-  </body>
 </html>

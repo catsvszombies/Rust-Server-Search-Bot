@@ -3,3 +3,11 @@
   font-family: monospace;
   white-space: pre;
 }
+
+td.server-name {
+  width: 25%;
+}
+
+td.last-wipe {
+  width: 75%;
+}
