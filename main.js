@@ -10,8 +10,7 @@ mainButton.addEventListener("click", buttonFunction);
 
 function buttonFunction(){
   console.log("buttonFunction()");
-  var result = httpGet(bmTestLink);
-  console.log("Result: " + result);
+  httpGet(bmTestLink);
 }
 
 var bmTestLink = "https://api.battlemetrics.com/servers";
@@ -21,24 +20,39 @@ function httpGet(theUrl)
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
       if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                callback(xmlHttp.responseText);
-        }
-        var params = "filter:game=rust";
-        xmlHttp.open("GET", theUrl+"?"+params, true); // true for asynchronous
-        xmlHttp.setRequestHeader("Authorization", token);
+            callback(xmlHttp.responseText);
+    }
+    var params = "filter[game]=rust";
+    xmlHttp.open("GET", theUrl+"?"+params, true); // true for asynchronous
+    xmlHttp.setRequestHeader("Authorization", token);
 
-        xmlHttp.send(null);
+    xmlHttp.send(null);
 }
 
 
 
-function callback(response){
+function callback(responseText) {
   console.log("callback");
+  console.log(responseText);
 
-  godInfo = JSON.parse(response);
-  console.log(godInfo);
-  document.getElementById("content").innerHTML = godInfo;
-  //console.log("Callback: " + response);
+  godInfo = JSON.parse(responseText);
+  var formatted = JSON.stringify(godInfo, null, 2);
+
+  document.getElementById("data").innerText = formatted;
+
+  var buffer = "";
+  for (var i=0; i<godInfo.data.length; i++) {
+    buffer += godInfo.data[i].attributes.name;
+    if (godInfo.data[i].attributes.details) {
+      buffer += " - last wipe: " + godInfo.data[i].attributes.details.rust_last_wipe;
+    }
+    buffer += "\n";
+  }
+
+  document.getElementById("content").innerText = buffer;
+
+
+  //console.log("Callback: " + responseText);
   /*console.log("godInfo: " + godInfo);
   for(var i = 0; i < godInfo.size; i++){
     console.log("Element #" + i + ": " + godInfo[i]);
